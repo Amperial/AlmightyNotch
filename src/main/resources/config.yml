@@ -1,0 +1,94 @@
+# Show debug messages
+Debug: false
+
+# Should the events begin when the server starts
+StartOnStartup: true
+
+# Delay between when events occur - for testing purposes may need to be set lower
+OccurenceDelay: 60
+
+# Max tries the event manager has to trigger a random event
+MaxTries: 10
+
+# Worlds that events can occur in
+Worlds: [world]
+
+Events:
+  AnvilFall:
+    Enabled: true
+    Probability: 5
+    Message: "Look out below!"
+    FallHeight: 15
+    RemoveAfterFall: true
+  CreeperExplode:
+    Enabled: true
+    Probability: 1
+    Message: "Creepers everywhere have mysteriously exploded!"
+  Dinnerbone:
+    Enabled: true
+    Probability: 2
+    Message: "We've been receiving sightings of upside down skeletons."
+    Duration: 15
+  ExpBottle:
+    Enabled: false
+    Probability: 4
+    Message: "A large amount of experience has been spotted at x:%s z:%s!"
+    Amount: 20
+  Fireworks:
+    Enabled: false
+    Probability: 3
+    Message: "It's like the 4th of July!"
+    Amount: 2
+  FoodCook:
+    Enabled: true
+    Probability: 7
+    Message: "You got lucky and your food was cooked!"
+  FrightenSheep:
+    Enabled: false
+    Probability: 2
+    Message: "Something must have spooked the sheep! They all jumped out of their skin."
+  GeomagneticReversal:
+    Enabled: true
+    Probability: 3
+    Message: "Everyone's compass is going bonkers.. looks like a geomagnetic reversal!"
+    Duration: 15
+  MobHorde:
+    Enabled: false
+    Probability: 4
+    Message: "A horde of mobs was spotted at x:%s z:%s!"
+    Amount: 15
+    MaxRadius: 150
+  OreSmelt:
+    Enabled: true
+    Probability: 7
+    Message: "You got lucky and your ore was smelted!"
+  PvP:
+    Enabled: false
+    Probability: 5
+    Message: "The next person to kill another player will be rewarded!"
+    Rewards:
+      - Material: DIAMOND
+        Amount: 1
+      - Material: GOLD_INGOT
+        Amount: 5
+  SolarFlare:
+    Enabled: true
+    Probability: 3
+    Message: "It's so hot the chickens are laying hard-boiled eggs..."
+    Duration: 5
+  Sound:
+    Enabled: true
+    Probability: 8
+    Message: "Whoah, what was that? You better check outside."
+    Amount: 3
+Messages:
+  Prefix: "&9[&7RandomEvents&9]&7 "
+  Reload: "Reloaded RandomEvents"
+  CommandUsage: "&4Usage: %s"
+  Start: "Events started."
+  AlreadyStarted: "Events already started."
+  Stop: "Events stopped."
+  AlreadyStopped: "Events already stopped."
+  Event:
+    Trigger: "Triggered %s."
+    NotFound: "Event not found."
