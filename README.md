@@ -21,24 +21,36 @@ Features
 Built-in Events
 ---------------
 
-Descriptions and code of the following events can be found in [this package](https://github.com/tenjava/ampayne2-t3/tree/master/src/main/java/me/ampayne2/randomevents/events)
+Descriptions and code of the following events can be found in [this package](https://github.com/ampayne2/RandomEvents/tree/master/src/main/java/me/ampayne2/randomevents/events)
 - Anvil Fall Event
 - Creeper Explode Event
 - Dinnerbone Event
-- Exp Bottle Event (Unfinished)
-- Fireworks Event (Unfinished)
 - Food Cook Event
-- Frighten Sheep Event (Unfinished)
 - Geomagnetic Reversal Event
-- Mob Horde Event (Unfinished)
 - Ore Smelt Event
-- PvP Event (Unfinished)
 - Solar Flare Event
 - Sound Event
 
+Events Coming Soon:
+- Acid Rain Event
+- Angry Chicken Event
+- Blizzard Event
+- Buried Treasure Event
+- Exp Bottle Event
+- Fireworks Event
+- Frighten Sheep Event
+- Hail Storm Event
+- Lightning Storm Event
+- Loot Crate Event
+- Meteor Event
+- Mob Horde Event
+- Piranha Event
+- PvP Event
+- Quicksand Event
+- Sinkhole Event
+- Tornado Event
+
 Ideas for the future:
-- More Weather Events - Acid Rain, Hail, Ice Storm
-- Natural Disasters - Volcano, Meteor, Earthquake, Tornado
 - More Minigame Events - First to collect a certain item, First to perform certain actions
 - Collapsing Mine Events
 
@@ -48,7 +60,7 @@ Compilation
 -----------
 
 - Download & Install [Maven 3](http://maven.apache.org/download.html)
-- Clone the repository: `git clone https://github.com/tenjava/ampayne2-t3`
+- Clone the repository: `git clone https://github.com/ampayne2/RandomEvents`
 - Compile and create the plugin package using Maven: `mvn`
 
 Maven will download all required dependencies and build a ready-for-use plugin package!
@@ -90,7 +102,7 @@ Included with the plugin are four types of events which should be sufficient for
 ---
 
 Creating an event
-- Extend the type of event it will be (for example [WorldEvent](https://github.com/tenjava/ampayne2-t3/blob/master/src/main/java/me/ampayne2/randomevents/api/WorldEvent.java)).
+- Extend the type of event it will be (for example [WorldEvent](https://github.com/ampayne2/RandomEvents/blob/master/src/main/java/me/ampayne2/randomevents/api/WorldEvent.java)).
 Then implement the methods and add your functionality. Don't forget to broadcast the occur message!
 ```
 public class SolarFlareEvent extends WorldEvent {
@@ -117,8 +129,8 @@ Events are also able to extend Listener if you need more functionality.
 ---
 
 Creating a new type of event
-- Extend [RandomEvent](https://github.com/tenjava/ampayne2-t3/blob/master/src/main/java/me/ampayne2/randomevents/api/RandomEvent.java).
-- Extend [EventHandler](https://github.com/tenjava/ampayne2-t3/blob/master/src/main/java/me/ampayne2/randomevents/api/handlers/EventHandler.java) for your new type of event - it will take care of triggering the event.
+- Extend [RandomEvent](https://github.com/ampayne2/RandomEvents/blob/master/src/main/java/me/ampayne2/randomevents/api/RandomEvent.java).
+- Extend [EventHandler](https://github.com/ampayne2/RandomEvents/blob/master/src/main/java/me/ampayne2/randomevents/api/handlers/EventHandler.java) for your new type of event - it will take care of triggering the event.
 For examples of creating the event type and handler, take a look at some of the built in event types and their handlers.
 
 ---
