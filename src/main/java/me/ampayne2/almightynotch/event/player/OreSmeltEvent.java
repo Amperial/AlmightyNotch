@@ -19,6 +19,8 @@
 package me.ampayne2.almightynotch.event.player;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
+import me.ampayne2.almightynotch.Message;
+import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.PlayerEvent;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -27,9 +29,10 @@ import org.bukkit.inventory.ItemStack;
 public class OreSmeltEvent extends PlayerEvent {
     public OreSmeltEvent() {
         super("OreSmelt");
+        setMoods(Mood.SATISFIED);
         setProbability(7);
         setDescription("Smelts all the ore in a random player's inventory.");
-        setOccurMessage("You got lucky and your ore was smelted!");
+        setOccurMessage(Message.ORE_SMELT_EVENT);
     }
 
     @Override
@@ -41,7 +44,7 @@ public class OreSmeltEvent extends PlayerEvent {
             }
         }
         player.updateInventory();
-        //plugin.getMessenger().sendEventMessage(player, this);
+        plugin.getMessenger().sendMessage(player, getOccurMessage());
     }
 
     @Override

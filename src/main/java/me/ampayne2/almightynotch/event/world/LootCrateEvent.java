@@ -19,4 +19,5 @@
 package me.ampayne2.almightynotch.event.world;
 
 public class LootCrateEvent {
+    // Moods: Ecstatic
 }

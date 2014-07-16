@@ -20,6 +20,7 @@ package me.ampayne2.almightynotch.event;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
 import me.ampayne2.almightynotch.Mood;
+import me.ampayne2.amplib.messenger.Message;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -32,16 +33,15 @@ import java.util.Set;
 public abstract class Event<T> {
     private final String name;
     private final EventHandler eventHandler;
-    private final Set<Mood> moods;
+    private Set<Mood> moods = new HashSet<>();
     private String description;
-    private String occurMessage;
+    private Message occurMessage;
     private int probability = 0;
     protected static final Random RANDOM = new Random();
 
-    public Event(String name, EventHandler eventHandler, Mood... moods) {
+    public Event(String name, EventHandler eventHandler) {
         this.name = name;
         this.eventHandler = eventHandler;
-        this.moods = new HashSet<>(Arrays.asList(moods));
     }
 
     /**
@@ -69,6 +69,18 @@ public abstract class Event<T> {
      */
     public Set<Mood> getMoods() {
         return moods;
+    }
+
+    /**
+     * Sets the {@link me.ampayne2.almightynotch.Mood}s the event can occur during.
+     *
+     * @param moods The {@link me.ampayne2.almightynotch.Mood}s.
+     */
+    public void setMoods(Mood... moods) {
+        this.moods = new HashSet<>(Arrays.asList(moods));
+        for (Mood mood : moods) {
+            mood.addEvent(this);
+        }
     }
 
     /**
@@ -104,7 +116,7 @@ public abstract class Event<T> {
      *
      * @return The random event's occur message.
      */
-    public String getOccurMessage() {
+    public Message getOccurMessage() {
         return occurMessage;
     }
 
@@ -113,7 +125,7 @@ public abstract class Event<T> {
      *
      * @param occurMessage The occur message.
      */
-    public void setOccurMessage(String occurMessage) {
+    public void setOccurMessage(Message occurMessage) {
         this.occurMessage = occurMessage;
     }
 
@@ -152,6 +164,16 @@ public abstract class Event<T> {
      */
     public boolean canOccur(AlmightyNotchPlugin plugin, T target) {
         return true;
+    }
+
+    /**
+     * Removes the event from its moods and the event list.
+     */
+    public void remove() {
+        for (Mood mood : moods) {
+            mood.removeEvent(this);
+        }
+        DefaultEvent.getEventList().remove(this);
     }
 
     /**

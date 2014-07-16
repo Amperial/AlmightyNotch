@@ -19,7 +19,10 @@
 package me.ampayne2.almightynotch.event.player;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
+import me.ampayne2.almightynotch.Message;
+import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.MinigameEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -28,15 +31,16 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 public class PvPEvent extends MinigameEvent implements Listener {
     public PvPEvent() {
         super("PvP");
+        setMoods(Mood.SATISFIED, Mood.GENEROUS);
         setProbability(5);
         setDescription("Rewards the first player to kill another player.");
-        setOccurMessage("The next person to kill another player will be rewarded!");
+        setOccurMessage(Message.PVP_EVENT);
     }
 
     @Override
     public void trigger(AlmightyNotchPlugin plugin, Server server) {
         super.trigger(plugin, server);
-        //plugin.getMessenger().broadcastEventMessage(this);
+        plugin.getMessenger().sendMessage(Bukkit.getServer(), getOccurMessage());
     }
 
     @org.bukkit.event.EventHandler

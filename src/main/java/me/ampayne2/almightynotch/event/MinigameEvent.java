@@ -19,7 +19,6 @@
 package me.ampayne2.almightynotch.event;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
-import me.ampayne2.almightynotch.Mood;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 
@@ -30,8 +29,8 @@ public abstract class MinigameEvent extends Event<Server> {
     private boolean isRunning = false;
     private static final EventHandler handler = new MinigameEventHandler();
 
-    public MinigameEvent(String name, Mood... moods) {
-        super(name, handler, moods);
+    public MinigameEvent(String name) {
+        super(name, handler);
     }
 
     @Override

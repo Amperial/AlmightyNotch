@@ -19,21 +19,25 @@
 package me.ampayne2.almightynotch.event.world;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
+import me.ampayne2.almightynotch.Message;
+import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.LocationEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 public class ExpBottleEvent extends LocationEvent {
     public ExpBottleEvent() {
         super("ExpBottle");
+        setMoods(Mood.GENEROUS, Mood.ECSTATIC);
         setProbability(4);
         setDescription("Drops exp bottles at a random location.");
-        setOccurMessage("A large amount of experience has been spotted at x:%s z:%s!");
+        setOccurMessage(Message.EXP_BOTTLE_EVENT);
     }
 
     @Override
     public void trigger(AlmightyNotchPlugin plugin, Location location) {
         // TODO: Drop exp bottles
 
-        //plugin.getMessenger().broadcastEventMessage(this, String.valueOf(location.getBlockX()), String.valueOf(location.getBlockZ()));
+        plugin.getMessenger().sendMessage(Bukkit.getServer(), getOccurMessage(), String.valueOf(location.getBlockX()), String.valueOf(location.getBlockZ()));
     }
 }

@@ -19,21 +19,25 @@
 package me.ampayne2.almightynotch.event.world;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
+import me.ampayne2.almightynotch.Message;
+import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.WorldEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 public class FireworksEvent extends WorldEvent {
     public FireworksEvent() {
         super("Fireworks");
+        setMoods(Mood.BORED, Mood.SLEEPY);
         setProbability(3);
         setDescription("Shoots fireworks around every player.");
-        setOccurMessage("It's like the 4th of July!");
+        setOccurMessage(Message.FIREWORKS_EVENT);
     }
 
     @Override
     public void trigger(AlmightyNotchPlugin plugin, World world) {
         // TODO: Shoot fireworks
 
-        //plugin.getMessenger().broadcastEventMessage(this);
+        plugin.getMessenger().sendMessage(Bukkit.getServer(), Message.FIREWORKS_EVENT);
     }
 }

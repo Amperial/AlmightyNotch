@@ -99,7 +99,7 @@ public class SolarFlareEvent extends WorldEvent {
     }
 
     @Override
-    public void trigger(AlmightyNotch plugin, World world) {
+    public void trigger(AlmightyNotchPlugin plugin, World world) {
         // The actual event functionality
         for (LivingEntity entity : world.getLivingEntities()) {
             entity.setFireTicks(plugin.getConfig().getInt("Events.SolarFlare.Duration", 5) * 20);

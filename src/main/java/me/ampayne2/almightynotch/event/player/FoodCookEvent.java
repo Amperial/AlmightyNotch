@@ -19,6 +19,8 @@
 package me.ampayne2.almightynotch.event.player;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
+import me.ampayne2.almightynotch.Message;
+import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.PlayerEvent;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -28,9 +30,10 @@ import org.bukkit.material.MaterialData;
 public class FoodCookEvent extends PlayerEvent {
     public FoodCookEvent() {
         super("FoodCook");
+        setMoods(Mood.SATISFIED);
         setProbability(7);
         setDescription("Cooks all the food in a player's inventory.");
-        setOccurMessage("You got lucky and your food was cooked!");
+        setOccurMessage(Message.FOOD_COOK_EVENT);
     }
 
     @Override
@@ -42,7 +45,7 @@ public class FoodCookEvent extends PlayerEvent {
             }
         }
         player.updateInventory();
-        //plugin.getMessenger().sendEventMessage(player, this);
+        plugin.getMessenger().sendMessage(player, getOccurMessage());
     }
 
     @Override

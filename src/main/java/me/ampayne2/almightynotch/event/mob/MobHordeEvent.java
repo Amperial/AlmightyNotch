@@ -19,21 +19,25 @@
 package me.ampayne2.almightynotch.event.mob;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
+import me.ampayne2.almightynotch.Message;
+import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.LocationEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 public class MobHordeEvent extends LocationEvent {
     public MobHordeEvent() {
         super("MobHorde");
+        setMoods(Mood.BORED);
         setProbability(4);
         setDescription("Spawns a horde of mobs at a random location.");
-        setOccurMessage("A horde of mobs was spotted at x:%s z:%s!");
+        setOccurMessage(Message.MOB_HORDE_EVENT);
     }
 
     @Override
     public void trigger(AlmightyNotchPlugin plugin, Location location) {
         // TODO: Spawn mob horde
 
-        //plugin.getMessenger().broadcastEventMessage(this, String.valueOf(location.getBlockX()), String.valueOf(location.getBlockZ()));
+        plugin.getMessenger().sendMessage(Bukkit.getServer(), getOccurMessage(), String.valueOf(location.getBlockX()), String.valueOf(location.getBlockZ()));
     }
 }

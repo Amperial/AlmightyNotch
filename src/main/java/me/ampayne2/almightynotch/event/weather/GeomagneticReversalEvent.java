@@ -19,6 +19,8 @@
 package me.ampayne2.almightynotch.event.weather;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
+import me.ampayne2.almightynotch.Message;
+import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.WorldEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -34,9 +36,10 @@ public class GeomagneticReversalEvent extends WorldEvent {
 
     public GeomagneticReversalEvent() {
         super("GeomagneticReversal");
+        setMoods(Mood.BORED);
         setProbability(3);
         setDescription("Makes every player's compass go bonkers.");
-        setOccurMessage("Everyone's compass is going bonkers.. looks like a geomagnetic reversal!");
+        setOccurMessage(Message.GEOMAGNETIC_REVERSAL_EVENT);
     }
 
     @Override
@@ -51,7 +54,7 @@ public class GeomagneticReversalEvent extends WorldEvent {
                 }
             }
         }, 0, 5));
-        //plugin.getMessenger().broadcastEventMessage(this);
+        plugin.getMessenger().sendMessage(Bukkit.getServer(), getOccurMessage());
         final Location spawnLocation = world.getSpawnLocation();
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override

@@ -19,6 +19,8 @@
 package me.ampayne2.almightynotch.event.mob;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
+import me.ampayne2.almightynotch.Message;
+import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.WorldEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -31,9 +33,10 @@ import org.bukkit.plugin.PluginManager;
 public class CreeperExplodeEvent extends WorldEvent {
     public CreeperExplodeEvent() {
         super("CreeperExplode");
+        setMoods(Mood.DISPLEASED);
         setProbability(1);
         setDescription("Makes all the creepers in the world explode.");
-        setOccurMessage("Creepers everywhere have mysteriously exploded!");
+        setOccurMessage(Message.CREEPER_EXPLODE_EVENT);
     }
 
     @Override
@@ -52,6 +55,6 @@ public class CreeperExplodeEvent extends WorldEvent {
                 }
             }
         }
-        //plugin.getMessenger().broadcastEventMessage(this);
+        plugin.getMessenger().sendMessage(Bukkit.getServer(), getOccurMessage());
     }
 }

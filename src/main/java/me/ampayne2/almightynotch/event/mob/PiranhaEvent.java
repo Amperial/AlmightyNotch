@@ -16,7 +16,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with AlmightyNotch.  If not, see <http://www.gnu.org/licenses/>.
  */
-package me.ampayne2.almightynotch.event.world;
+package me.ampayne2.almightynotch.event.mob;
 
 public class PiranhaEvent {
+    // Moods: Displeased
 }

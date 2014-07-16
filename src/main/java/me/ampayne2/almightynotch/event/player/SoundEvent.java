@@ -19,8 +19,11 @@
 package me.ampayne2.almightynotch.event.player;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
+import me.ampayne2.almightynotch.Message;
+import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.WorldEvent;
 import me.ampayne2.almightynotch.util.Util;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -28,9 +31,10 @@ import org.bukkit.entity.Player;
 public class SoundEvent extends WorldEvent {
     public SoundEvent() {
         super("Sound");
+        setMoods(Mood.BORED, Mood.SLEEPY);
         setProbability(8);
         setDescription("Plays random sounds to all the players in a world.");
-        setOccurMessage("Whoah, what was that? You better check outside.");
+        setOccurMessage(Message.SOUND_EVENT);
     }
 
     @Override
@@ -41,6 +45,6 @@ public class SoundEvent extends WorldEvent {
                 player.playSound(player.getLocation(), Util.randomEnum(Sound.class), 10, 1);
             }
         }
-        //plugin.getMessenger().broadcastEventMessage(this);
+        plugin.getMessenger().sendMessage(Bukkit.getServer(), getOccurMessage());
     }
 }

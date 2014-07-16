@@ -19,4 +19,5 @@
 package me.ampayne2.almightynotch.event.weather;
 
 public class TornadoEvent {
+    // Moods: Infuriated
 }

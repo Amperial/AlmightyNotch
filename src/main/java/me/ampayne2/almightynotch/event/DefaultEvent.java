@@ -18,6 +18,7 @@
  */
 package me.ampayne2.almightynotch.event;
 
+import me.ampayne2.almightynotch.EventList;
 import me.ampayne2.almightynotch.event.mob.CreeperExplodeEvent;
 import me.ampayne2.almightynotch.event.mob.DinnerboneEvent;
 import me.ampayne2.almightynotch.event.mob.FrightenSheepEvent;
@@ -32,11 +33,8 @@ import me.ampayne2.almightynotch.event.weather.SolarFlareEvent;
 import me.ampayne2.almightynotch.event.world.ExpBottleEvent;
 import me.ampayne2.almightynotch.event.world.FireworksEvent;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * Default events that come with the AlmightyNotch plugin.
+ * Default {@link me.ampayne2.almightynotch.event.Event}s that come with the AlmightyNotch plugin.
  */
 public enum DefaultEvent {
     // Location Events
@@ -67,23 +65,55 @@ public enum DefaultEvent {
     }
 
     /**
-     * Gets the {@link Event} instance of the DefaultEvent.
+     * Gets the {@link me.ampayne2.almightynotch.event.Event} instance of the DefaultEvent.
      *
-     * @return The {@link Event} instance.
+     * @return The {@link me.ampayne2.almightynotch.event.Event} instance.
      */
     public Event getEvent() {
         return event;
     }
 
-    private static final Map<String, DefaultEvent> NAME_MAP = new HashMap<>();
+    /**
+     * A list of all {@link me.ampayne2.almightynotch.event.Event}s.
+     */
+    private static final EventList eventList = new EventList();
 
-    public static DefaultEvent byName(String name) {
-        return NAME_MAP.get(name.toLowerCase());
+    /**
+     * Adds a custom {@link me.ampayne2.almightynotch.event.Event} to the {@link me.ampayne2.almightynotch.EventList}.
+     *
+     * @param event The {@link me.ampayne2.almightynotch.event.Event} to add.
+     */
+    public static void addCustomEvent(Event event) {
+        eventList.add(event);
+    }
+
+    /**
+     * Gets an {@link me.ampayne2.almightynotch.event.Event} by its name.
+     *
+     * @param name The name of the {@link me.ampayne2.almightynotch.event.Event}.
+     * @return The {@link me.ampayne2.almightynotch.event.Event}.
+     */
+    public static Event byName(String name) {
+        for (Event event : eventList) {
+            if (event.getName().equalsIgnoreCase(name)) {
+                return event;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the {@link me.ampayne2.almightynotch.EventList} of all {@link me.ampayne2.almightynotch.event.Event}s.
+     *
+     * @return The {@link me.ampayne2.almightynotch.EventList} of all {@link me.ampayne2.almightynotch.event.Event}s.
+     */
+    public static EventList getEventList() {
+        return eventList;
     }
 
     static {
         for (DefaultEvent defaultEvent : DefaultEvent.class.getEnumConstants()) {
-            NAME_MAP.put(defaultEvent.getEvent().getName().toLowerCase(), defaultEvent);
+            eventList.add(defaultEvent.getEvent());
         }
     }
 }

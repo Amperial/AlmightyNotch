@@ -19,4 +19,5 @@
 package me.ampayne2.almightynotch.event.player;
 
 public class QuicksandEvent {
+    // Moods: Bored, Displeased
 }

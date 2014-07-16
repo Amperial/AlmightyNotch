@@ -19,16 +19,20 @@
 package me.ampayne2.almightynotch.event.weather;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
+import me.ampayne2.almightynotch.Message;
+import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.WorldEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 
 public class SolarFlareEvent extends WorldEvent {
     public SolarFlareEvent() {
         super("SolarFlare");
+        setMoods(Mood.DISPLEASED);
         setProbability(3);
         setDescription("Sets all mobs in the world on fire.");
-        setOccurMessage("It's so hot the chickens are laying hard-boiled eggs...");
+        setOccurMessage(Message.SOLAR_FLARE_EVENT);
     }
 
     @Override
@@ -36,7 +40,7 @@ public class SolarFlareEvent extends WorldEvent {
         for (LivingEntity entity : world.getLivingEntities()) {
             entity.setFireTicks(plugin.getConfig().getInt("Events.SolarFlare.Duration", 5) * 20);
         }
-        //plugin.getMessenger().broadcastEventMessage(this);
+        plugin.getMessenger().sendMessage(Bukkit.getServer(), getOccurMessage());
     }
 
     @Override

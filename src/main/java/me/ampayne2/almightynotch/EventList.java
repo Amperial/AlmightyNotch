@@ -22,6 +22,7 @@ import me.ampayne2.almightynotch.event.Event;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -85,5 +86,18 @@ public class EventList extends ArrayList<Event> {
             }
         }
         return null;
+    }
+
+    /**
+     * Gets the names of all events in the list.
+     *
+     * @return A list of all event names.
+     */
+    public List<String> getNames() {
+        List<String> list = new ArrayList<>();
+        for (Event event : this) {
+            list.add(event.getName());
+        }
+        return list;
     }
 }

@@ -19,7 +19,6 @@
 package me.ampayne2.almightynotch.event;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
-import me.ampayne2.almightynotch.Mood;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
@@ -32,8 +31,8 @@ import java.util.List;
 public abstract class WorldEvent extends Event<World> {
     private static final EventHandler handler = new WorldEventHandler();
 
-    public WorldEvent(String name, Mood... moods) {
-        super(name, handler, moods);
+    public WorldEvent(String name) {
+        super(name, handler);
     }
 
     /**

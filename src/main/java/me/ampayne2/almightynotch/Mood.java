@@ -18,29 +18,39 @@
  */
 package me.ampayne2.almightynotch;
 
-import me.ampayne2.almightynotch.event.DefaultEvent;
 import me.ampayne2.almightynotch.event.Event;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
- * The range of moods Notch can have.
+ * The range of moods Notch can have and their messages.
  */
-public enum Mood {
-    ECSTATIC("Ecstatic"),
-    GENEROUS("Generous"),
-    SATISFIED("Satisfied"),
-    SLEEPY("Sleepy"),
-    BORED("Bored"),
-    DISPLEASED("Displeased"),
-    INFURIATED("Infuriated");
+public enum Mood implements me.ampayne2.amplib.messenger.Message {
+    ECSTATIC("Ecstatic", "&2&oAlmighty Notch is ecstatic!"),
+    GENEROUS("Generous", "&2Almighty Notch is feeling generous!"),
+    SATISFIED("Satisfied", "&aAlmighty Notch is satisfied."),
+    SLEEPY("Sleepy", "Almighty Notch is feeling sleepy..."),
+    BORED("Bored", "&eAlmighty Notch is looking for some entertainment."),
+    DISPLEASED("Displeased", "&6Almighty Notch is displeased."),
+    INFURIATED("Infuriated", "&4&lAlmighty Notch is infuriated. Take cover!");
 
     private final String name;
     private final Set<Event> events = new HashSet<>();
 
-    private Mood(String name) {
+    private String message;
+    private final String path;
+    private final String defaultMessage;
+
+    private Mood(String name, String defaultMessage) {
         this.name = name;
+        this.message = defaultMessage;
+        this.path = "Mood." + name;
+        this.defaultMessage = defaultMessage;
     }
 
     /**
@@ -70,14 +80,64 @@ public enum Mood {
         events.add(event);
     }
 
+    /**
+     * Removes an {@link me.ampayne2.almightynotch.event.Event} from the Mood.
+     *
+     * @param event The {@link me.ampayne2.almightynotch.event.Event} to remove.
+     */
+    public void removeEvent(Event event) {
+        events.remove(event);
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public String getPath() {
+        return path;
+    }
+
+    @Override
+    public String getDefault() {
+        return defaultMessage;
+    }
+
+    @Override
+    public String toString() {
+        return message;
+    }
+
+    private static Map<String, Mood> BY_NAME = new HashMap<>();
+
+    /**
+     * Gets a Mood by its name.
+     *
+     * @param name The Mood's name.
+     * @return The Mood.
+     */
+    public static Mood byName(String name) {
+        return BY_NAME.get(name.toLowerCase());
+    }
+
+    /**
+     * Gets the names of all Moods.
+     *
+     * @return A list of all Mood names.
+     */
+    public static List<String> getNames() {
+        return new ArrayList<>(BY_NAME.keySet());
+    }
+
     static {
-        // Populates each mood's events.
         for (Mood mood : Mood.class.getEnumConstants()) {
-            for (DefaultEvent event : DefaultEvent.class.getEnumConstants()) {
-                if (event.getEvent().hasMood(mood)) {
-                    mood.addEvent(event.getEvent());
-                }
-            }
+            BY_NAME.put(mood.getName().toLowerCase(), mood);
         }
     }
 }

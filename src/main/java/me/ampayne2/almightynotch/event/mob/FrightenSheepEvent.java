@@ -19,21 +19,25 @@
 package me.ampayne2.almightynotch.event.mob;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
+import me.ampayne2.almightynotch.Message;
+import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.WorldEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 public class FrightenSheepEvent extends WorldEvent {
     public FrightenSheepEvent() {
         super("FrightenSheep");
+        setMoods(Mood.BORED);
         setProbability(2);
         setDescription("Makes all the sheep in the world drop their wool.");
-        setOccurMessage("Something must have spooked the sheep! They all jumped out of their skin.");
+        setOccurMessage(Message.FRIGHTEN_SHEEP_EVENT);
     }
 
     @Override
     public void trigger(AlmightyNotchPlugin plugin, World world) {
         // TODO: Shear all sheep
 
-        //plugin.getMessenger().broadcastEventMessage(this);
+        plugin.getMessenger().sendMessage(Bukkit.getServer(), getOccurMessage());
     }
 }

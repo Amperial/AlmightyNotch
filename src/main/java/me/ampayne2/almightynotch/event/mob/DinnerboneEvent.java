@@ -19,6 +19,8 @@
 package me.ampayne2.almightynotch.event.mob;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
+import me.ampayne2.almightynotch.Message;
+import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.WorldEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -31,9 +33,10 @@ import java.util.UUID;
 public class DinnerboneEvent extends WorldEvent {
     public DinnerboneEvent() {
         super("Dinnerbone");
+        setMoods(Mood.BORED);
         setProbability(2);
         setDescription("Causes all skeletons in the world grow ears.");
-        setOccurMessage("We've been receiving sightings of creepy skeleton bunnies..");
+        setOccurMessage(Message.DINNERBONE_EVENT);
     }
 
     @Override
@@ -45,7 +48,7 @@ public class DinnerboneEvent extends WorldEvent {
                 entity.setPassenger(ears);
             }
         }
-        //plugin.getMessenger().broadcastEventMessage(this);
+        plugin.getMessenger().sendMessage(Bukkit.getServer(), getOccurMessage());
         final UUID worldId = world.getUID();
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override

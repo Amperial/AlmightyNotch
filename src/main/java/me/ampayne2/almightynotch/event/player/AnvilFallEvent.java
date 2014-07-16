@@ -19,6 +19,8 @@
 package me.ampayne2.almightynotch.event.player;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
+import me.ampayne2.almightynotch.Message;
+import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.PlayerEvent;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -27,9 +29,10 @@ import org.bukkit.entity.Player;
 public class AnvilFallEvent extends PlayerEvent {
     public AnvilFallEvent() {
         super("AnvilFall");
+        setMoods(Mood.BORED, Mood.DISPLEASED);
         setProbability(5);
         setDescription("Drops an anvil onto a random player.");
-        setOccurMessage("&4Look out below!");
+        setOccurMessage(Message.ANVIL_FALL_EVENT);
     }
 
     @Override
@@ -44,7 +47,7 @@ public class AnvilFallEvent extends PlayerEvent {
                 location.subtract(0, 1, 0);
                 location.getBlock().setType(Material.ANVIL);
                 location.getBlock().setData((byte) 8);
-                //plugin.getMessenger().sendEventMessage(player, this);
+                plugin.getMessenger().sendMessage(player, getOccurMessage());
                 return;
             }
         }

@@ -19,7 +19,6 @@
 package me.ampayne2.almightynotch.event;
 
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
-import me.ampayne2.almightynotch.Mood;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -33,8 +32,8 @@ import java.util.List;
 public abstract class LocationEvent extends Event<Location> {
     private static final EventHandler handler = new LocationEventHandler();
 
-    public LocationEvent(String name, Mood... moods) {
-        super(name, handler, moods);
+    public LocationEvent(String name) {
+        super(name, handler);
     }
 
     /**
@@ -65,7 +64,7 @@ public abstract class LocationEvent extends Event<Location> {
                 World world = worlds.get(RANDOM.nextInt(worlds.size()));
                 // TODO: Get a random location
             }
-            return false;
+            return true;
         }
     }
 }
