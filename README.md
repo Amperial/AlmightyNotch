@@ -1,27 +1,28 @@
-RandomEvents
-============
+AlmightyNotch
+=============
 
-RandomEvents is a continuation of my submission for the 2014 ten.java contest.
+AlmightyNotch is a continuation of my submission for the 2014 ten.java contest.
 Theme: What random events can occur in Minecraft?
 
-The RandomEvents plugin's main purpose is to trigger random events on the server every few minutes.
-It includes a wide variety of default events but was designed to be extended - events can be added easily through the API.
+The AlmightyNotch plugin's main purpose is to trigger random events on the server every few minutes.
+Depending on Notch's mood, the events could be rewarding or they could destroy your entire world.
 
 ---------------------------------------
 
 Features
 --------
 
-- Configure the delay between events are triggered and more
-- Set the probabilities of an event being triggered, to make certain events more common than others
-- Configurable Events and Messages
+- Configure the delay between when events are triggered and more.
+- Set the probabilities of an event being triggered, to make certain events more common than others.
+- Configurable Events and Messages.
+- Increase Notch's happiness by offering items, voting for the server, and more!
 
 ---------------------------------------
 
 Built-in Events
 ---------------
 
-Descriptions and code of the following events can be found in [this package](https://github.com/ampayne2/RandomEvents/tree/master/src/main/java/me/ampayne2/randomevents/events)
+Descriptions and code of the following events can be found in [this package](https://github.com/ampayne2/AlmightyNotch/tree/master/src/main/java/me/ampayne2/almightynotch/event)
 - Anvil Fall Event
 - Creeper Explode Event
 - Dinnerbone Event
@@ -60,7 +61,7 @@ Compilation
 -----------
 
 - Download & Install [Maven 3](http://maven.apache.org/download.html)
-- Clone the repository: `git clone https://github.com/ampayne2/RandomEvents`
+- Clone the repository: `git clone https://github.com/ampayne2/AlmightyNotch`
 - Compile and create the plugin package using Maven: `mvn`
 
 Maven will download all required dependencies and build a ready-for-use plugin package!
@@ -71,22 +72,6 @@ Usage
 -----
 
 1. Install and configure plugin - it's ready to go!
-
----------------------------------------
-
-Commands
---------
-
-/randomevents start
-- Starts the random events
-/randomevents stop
-- Stops the random events
-/randomevents reload
-- Reloads the plugin
-/randomevents trigger <event>
-- Manually triggers an event
-
-Aliases for /randomevents: /re, /revents
 
 ---------------------------------------
 
@@ -102,8 +87,8 @@ Included with the plugin are four types of events which should be sufficient for
 ---
 
 Creating an event
-- Extend the type of event it will be (for example [WorldEvent](https://github.com/ampayne2/RandomEvents/blob/master/src/main/java/me/ampayne2/randomevents/api/WorldEvent.java)).
-Then implement the methods and add your functionality. Don't forget to broadcast the occur message!
+- Extend the type of event it will be (for example [WorldEvent](https://github.com/ampayne2/AlmightyNotch/blob/master/src/main/java/me/ampayne2/almightynotch/event/WorldEvent.java)).
+Then implement the methods and add your functionality.
 ```
 public class SolarFlareEvent extends WorldEvent {
     public SolarFlareEvent() {
@@ -114,46 +99,15 @@ public class SolarFlareEvent extends WorldEvent {
     }
 
     @Override
-    public void trigger(RandomEvents plugin, World world) {
+    public void trigger(AlmightyNotch plugin, World world) {
         // The actual event functionality
         for (LivingEntity entity : world.getLivingEntities()) {
             entity.setFireTicks(plugin.getConfig().getInt("Events.SolarFlare.Duration", 5) * 20);
         }
-        // Broadcasts the occur message
-        plugin.getMessenger().broadcastEventMessage(this);
     }
 }
 ```
 Events are also able to extend Listener if you need more functionality.
-
----
-
-Creating a new type of event
-- Extend [RandomEvent](https://github.com/ampayne2/RandomEvents/blob/master/src/main/java/me/ampayne2/randomevents/api/RandomEvent.java).
-- Extend [EventHandler](https://github.com/ampayne2/RandomEvents/blob/master/src/main/java/me/ampayne2/randomevents/api/handlers/EventHandler.java) for your new type of event - it will take care of triggering the event.
-For examples of creating the event type and handler, take a look at some of the built in event types and their handlers.
-
----
-
-Adding your event to the manager
-- Get the RandomEvents plugin instance:
-```
-Plugin plugin = Bukkit.getPluginManager().getPlugin("RandomEvents");
-if (plugin != null && plugin instanceof RandomEvents) {
-    RandomEvents randomEvents = (RandomEvents) plugin;
-}
-```
-- Add the event to the manager
-```
-randomEvents.getEventManager().addEvent(new YourCustomEvent());
-```
-
----
-
-Getting an event by its name
-```
-randomEvents.getEventManager().getEvent("YourCustomEventName");
-```
 
 ---
 

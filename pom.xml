@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>me.ampayne2.randomevents</groupId>
-    <artifactId>randomevents</artifactId>
+    <groupId>me.ampayne2</groupId>
+    <artifactId>almightynotch</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>RandomEvents</name>
-    <description>RandomEvents plugin for Bukkit</description>
+    <name>AlmightyNotch</name>
+    <description>AlmightyNotch plugin for Bukkit</description>
     <inceptionYear>2014</inceptionYear>
 
     <properties>
@@ -17,6 +17,22 @@
             <id>bukkit-repo</id>
             <url>http://repo.bukkit.org/content/groups/public</url>
         </repository>
+        <repository>
+            <id>greatman-repo</id>
+            <url>http://repo.greatmancode.com/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>votifier-repo</id>
+            <url>http://repo.sacredlabyrinth.net:8081/artifactory/remote-repos/</url>
+        </repository>
+        <repository>
+            <id>Plugin Metrics</id>
+            <url>http://repo.mcstats.org/content/repositories/public</url>
+        </repository>
+        <repository>
+            <id>gravity-repo</id>
+            <url>http://repo.gravitydevelopment.net</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -26,11 +42,44 @@
             <version>1.7.9-R0.3-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>me.ampayne2</groupId>
+            <artifactId>amplib</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vexsoftware</groupId>
+            <artifactId>votifier</artifactId>
+            <version>1.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mcstats.bukkit</groupId>
+            <artifactId>metrics</artifactId>
+            <version>R8-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.gravitydevelopment.updater</groupId>
+            <artifactId>updater</artifactId>
+            <version>2.2</version>
+        </dependency>
     </dependencies>
 
     <build>
-        <defaultGoal>clean package</defaultGoal>
         <finalName>${project.name}</finalName>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <defaultGoal>clean install</defaultGoal>
+        <resources>
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>true</filtering>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>*.yml</include>
+                    <include>*.info</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <!-- Compiler plugin -->
             <plugin>
@@ -69,7 +118,7 @@
                     </mapping>
                     <properties>
                         <name>${project.name}</name>
-                        <url>http://dev.bukkit.org/server-mods/randomevents/</url>
+                        <url>http://dev.bukkit.org/server-mods/almightynotch/</url>
                         <copyright>Copyright (c) ${project.inceptionYear}</copyright>
                     </properties>
                     <includes>
@@ -78,16 +127,56 @@
                     </includes>
                 </configuration>
             </plugin>
+            <!-- Source .jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Shade plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.7.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <minimizeJar>true</minimizeJar>
+                            <artifactSet>
+                                <includes>
+                                    <include>me.ampayne2:amplib</include>
+                                    <include>org.mcstats.bukkit:metrics</include>
+                                    <include>net.gravitydevelopment.updater:updater</include>
+                                </includes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Javadoc .jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <targetPath>.</targetPath>
-                <filtering>true</filtering>
-                <directory>${basedir}/src/main/resources</directory>
-                <includes>
-                    <include>*</include>
-                </includes>
-            </resource>
-        </resources>
     </build>
 </project>

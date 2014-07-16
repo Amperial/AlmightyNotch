@@ -1,14 +1,8 @@
 # Show debug messages
 Debug: false
 
-# Should the events begin when the server starts
-StartOnStartup: true
-
 # Delay between when events occur - for testing purposes may need to be set lower
 OccurenceDelay: 60
-
-# Max tries the event manager has to trigger a random event
-MaxTries: 10
 
 # Worlds that events can occur in
 Worlds: [world]
@@ -81,14 +75,3 @@ Events:
     Probability: 8
     Message: "Whoah, what was that? You better check outside."
     Amount: 3
-Messages:
-  Prefix: "&9[&7RandomEvents&9]&7 "
-  Reload: "Reloaded RandomEvents"
-  CommandUsage: "&4Usage: %s"
-  Start: "Events started."
-  AlreadyStarted: "Events already started."
-  Stop: "Events stopped."
-  AlreadyStopped: "Events already stopped."
-  Event:
-    Trigger: "Triggered %s."
-    NotFound: "Event not found."

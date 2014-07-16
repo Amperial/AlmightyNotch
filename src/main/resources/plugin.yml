@@ -1,9 +1,9 @@
-name: RandomEvents
-main: me.ampayne2.randomevents.RandomEvents
+name: AlmightyNotch
+main: me.ampayne2.almightynotch.AlmightyNotchPlugin
 version: '${project.version}'
 commands:
-  randomevents:
-    description: Admin commands for RandomEvents.
-    aliases: [re, revents]
-    permission: randomevents.admin
+  almightynotch:
+    description: Admin commands for AlmightyNotch.
+    aliases: [an, anotch, notch]
+    permission: almightynotch.admin
     usage: /<command>
