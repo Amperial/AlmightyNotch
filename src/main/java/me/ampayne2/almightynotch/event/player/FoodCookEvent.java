@@ -34,6 +34,7 @@ public class FoodCookEvent extends PlayerEvent {
         setProbability(7);
         setDescription("Cooks all the food in a player's inventory.");
         setOccurMessage(Message.FOOD_COOK_EVENT);
+        setMoodModifier(-5);
     }
 
     @Override

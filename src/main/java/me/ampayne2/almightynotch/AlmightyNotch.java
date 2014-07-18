@@ -19,12 +19,18 @@
 package me.ampayne2.almightynotch;
 
 import me.ampayne2.almightynotch.event.Event;
+import me.ampayne2.almightynotch.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 
+/**
+ * Almighty Notch's brain.
+ */
 public class AlmightyNotch {
     private final AlmightyNotchPlugin plugin;
     private Mood mood = Mood.SLEEPY;
+    private int moodLevel;
+    private final int moodInterval;
 
     public AlmightyNotch(AlmightyNotchPlugin plugin) {
         this.plugin = plugin;
@@ -34,6 +40,9 @@ public class AlmightyNotch {
         if (configMood != null) {
             mood = configMood;
         }
+        moodLevel = config.getInt("MoodLevel", 0);
+        moodInterval = plugin.getConfig().getInt("MoodInterval", 25);
+        plugin.getMessenger().debug("Loaded Notch with mood " + mood.getName() + " and mood level " + moodLevel);
     }
 
     /**
@@ -52,16 +61,68 @@ public class AlmightyNotch {
      */
     public void setMood(Mood mood) {
         this.mood = mood;
+        this.moodLevel = 0;
         plugin.getMessenger().sendMessage(Bukkit.getServer(), mood);
-        save();
+        plugin.getMessenger().debug("Set Notch's mood to " + mood.getName());
+    }
+
+    /**
+     * Gets Almighty Notch's mood level.
+     *
+     * @return Almighty Notch's mood level.
+     */
+    public int getMoodLevel() {
+        return moodLevel;
+    }
+
+    /**
+     * Sets Almighty Notch's mood level.
+     *
+     * @param moodLevel The mood level.
+     */
+    public void setMoodLevel(int moodLevel) {
+        this.moodLevel = Util.clamp(moodLevel, 0, moodInterval);
+        plugin.getMessenger().debug("Set Notch's mood level to " + this.moodLevel);
+    }
+
+    /**
+     * Modifies Almighty Notch's mood level.
+     *
+     * @param amount The amount to increase or decrease the mood level by.
+     */
+    public void modifyMoodLevel(int amount) {
+        plugin.getMessenger().debug("Modifying mood level " + moodLevel + " by " + amount);
+        Mood newMood = mood;
+        int newMoodLevel = moodLevel + amount;
+        if (newMoodLevel > moodInterval) {
+            while (newMoodLevel > moodInterval) {
+                if (newMood.equals(newMood.getIncreasedMood())) {
+                    newMoodLevel = moodInterval;
+                } else {
+                    newMood = newMood.getIncreasedMood();
+                    newMoodLevel -= moodInterval;
+                }
+            }
+        } else if (newMoodLevel < 0) {
+            while (newMoodLevel < 0) {
+                if (newMood.equals(newMood.getDecreasedMood())) {
+                    newMoodLevel = 0;
+                } else {
+                    newMood = newMood.getDecreasedMood();
+                    newMoodLevel += moodInterval;
+                }
+            }
+        }
+        setMood(newMood);
+        setMoodLevel(newMoodLevel);
     }
 
     @SuppressWarnings("unchecked")
     public boolean triggerEvent() {
         EventList events = new EventList(mood.getEvents());
         while (!events.isEmpty()) {
-            System.out.println(events);
             Event event = events.getRandomEvent();
+            plugin.getMessenger().debug("Attempting to trigger event " + event.getName());
             if (event.getHandler().triggerEvent(plugin, event)) {
                 return true;
             } else {
@@ -75,7 +136,10 @@ public class AlmightyNotch {
      * Saves Almighty Notch to the config.
      */
     public void save() {
-        plugin.getConfigManager().getConfig(ConfigType.NOTCH).set("Mood", mood.getName());
+        FileConfiguration config = plugin.getConfigManager().getConfig(ConfigType.NOTCH);
+        config.set("Mood", mood.getName());
+        config.set("MoodLevel", moodLevel);
         plugin.getConfigManager().getConfigAccessor(ConfigType.NOTCH).saveConfig();
+        plugin.getMessenger().debug("Saved Notch to the config.");
     }
 }

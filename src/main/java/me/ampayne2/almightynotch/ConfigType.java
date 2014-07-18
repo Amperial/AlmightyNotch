@@ -22,6 +22,7 @@ package me.ampayne2.almightynotch;
  * An enumeration of the AlmightyNotch custom config types.
  */
 public enum ConfigType implements me.ampayne2.amplib.config.ConfigType {
+    EVENTS("Events.yml"),
     NOTCH("Notch.yml");
 
     private final String fileName;

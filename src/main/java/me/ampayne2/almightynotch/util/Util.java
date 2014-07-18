@@ -35,4 +35,16 @@ public class Util {
     public static <T extends Enum> T randomEnum(Class<T> clazz) {
         return clazz.getEnumConstants()[RANDOM.nextInt(clazz.getEnumConstants().length)];
     }
+
+    /**
+     * Clamps a value between a minimum and maximum value.
+     *
+     * @param value The value.
+     * @param min   The minimum value.
+     * @param max   The maximum value.
+     * @return The clamped value.
+     */
+    public static int clamp(int value, int min, int max) {
+        return Math.max(min, Math.min(max, value));
+    }
 }

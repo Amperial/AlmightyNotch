@@ -35,6 +35,7 @@ public class PvPEvent extends MinigameEvent implements Listener {
         setProbability(5);
         setDescription("Rewards the first player to kill another player.");
         setOccurMessage(Message.PVP_EVENT);
+        setMoodModifier(10);
     }
 
     @Override

@@ -24,21 +24,31 @@ import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.WorldEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.LivingEntity;
 
 public class SolarFlareEvent extends WorldEvent {
+    private int fireTicks = 5;
+
     public SolarFlareEvent() {
         super("SolarFlare");
         setMoods(Mood.DISPLEASED);
         setProbability(3);
         setDescription("Sets all mobs in the world on fire.");
         setOccurMessage(Message.SOLAR_FLARE_EVENT);
+        setMoodModifier(20);
+    }
+
+    @Override
+    public void load(ConfigurationSection section) {
+        super.load(section);
+        fireTicks = section.getInt("FireTicks", 100);
     }
 
     @Override
     public void trigger(AlmightyNotchPlugin plugin, World world) {
         for (LivingEntity entity : world.getLivingEntities()) {
-            entity.setFireTicks(plugin.getConfig().getInt("Events.SolarFlare.Duration", 5) * 20);
+            entity.setFireTicks(fireTicks);
         }
         plugin.getMessenger().sendMessage(Bukkit.getServer(), getOccurMessage());
     }

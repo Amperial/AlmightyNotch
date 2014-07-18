@@ -32,6 +32,7 @@ public class FrightenSheepEvent extends WorldEvent {
         setProbability(2);
         setDescription("Makes all the sheep in the world drop their wool.");
         setOccurMessage(Message.FRIGHTEN_SHEEP_EVENT);
+        setMoodModifier(5);
     }
 
     @Override

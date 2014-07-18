@@ -37,6 +37,7 @@ public class CreeperExplodeEvent extends WorldEvent {
         setProbability(1);
         setDescription("Makes all the creepers in the world explode.");
         setOccurMessage(Message.CREEPER_EXPLODE_EVENT);
+        setMoodModifier(15);
     }
 
     @Override

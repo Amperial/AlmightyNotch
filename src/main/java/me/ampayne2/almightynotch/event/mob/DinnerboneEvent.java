@@ -24,6 +24,7 @@ import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.WorldEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Skeleton;
@@ -31,12 +32,21 @@ import org.bukkit.entity.Skeleton;
 import java.util.UUID;
 
 public class DinnerboneEvent extends WorldEvent {
+    private long duration = 15 * 20;
+
     public DinnerboneEvent() {
         super("Dinnerbone");
         setMoods(Mood.BORED);
         setProbability(2);
         setDescription("Causes all skeletons in the world grow ears.");
         setOccurMessage(Message.DINNERBONE_EVENT);
+        setMoodModifier(5);
+    }
+
+    @Override
+    public void load(ConfigurationSection section) {
+        super.load(section);
+        duration = section.getLong("Duration", 15) * 20;
     }
 
     @Override
@@ -66,6 +76,6 @@ public class DinnerboneEvent extends WorldEvent {
                     }
                 }
             }
-        }, plugin.getConfig().getLong("Events.Dinnerbone.Duration", 15) * 20);
+        }, duration);
     }
 }

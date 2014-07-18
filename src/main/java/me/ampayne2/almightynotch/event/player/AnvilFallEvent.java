@@ -24,22 +24,31 @@ import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.almightynotch.event.PlayerEvent;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 public class AnvilFallEvent extends PlayerEvent {
+    private int fallHeight = 15;
+
     public AnvilFallEvent() {
         super("AnvilFall");
         setMoods(Mood.BORED, Mood.DISPLEASED);
         setProbability(5);
         setDescription("Drops an anvil onto a random player.");
         setOccurMessage(Message.ANVIL_FALL_EVENT);
+        setMoodModifier(10);
+    }
+
+    @Override
+    public void load(ConfigurationSection section) {
+        super.load(section);
+        fallHeight = section.getInt("FallHeight", 15);
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public void trigger(AlmightyNotchPlugin plugin, Player player) {
         // Drop the anvil as high above the player as possible up to the configured fall height
-        int fallHeight = plugin.getConfig().getInt("Events.AnvilFall.FallHeight", 15);
         Location location = player.getLocation().getBlock().getLocation();
         for (int i = 0; i <= fallHeight; i++) {
             location.add(0, 1, 0);

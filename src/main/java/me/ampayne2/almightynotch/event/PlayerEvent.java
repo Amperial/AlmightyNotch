@@ -46,9 +46,14 @@ public abstract class PlayerEvent extends Event<Player> {
                 Player player = players.get(RANDOM.nextInt(players.size()));
                 if (event.canOccur(plugin, player)) {
                     event.trigger(plugin, player);
+                    plugin.getMessenger().debug("Triggered PlayerEvent " + event.getName() + " for player " + player.getName());
+                    if (event.getMoodModifier() != 0) {
+                        plugin.getNotch().modifyMoodLevel(event.getMoodModifier());
+                    }
                     return true;
                 } else {
                     players.remove(player);
+                    plugin.getMessenger().debug("Couldn't trigger PlayerEvent " + event.getName() + " for player " + player.getName());
                 }
             }
             return false;

@@ -33,6 +33,7 @@ public class OreSmeltEvent extends PlayerEvent {
         setProbability(7);
         setDescription("Smelts all the ore in a random player's inventory.");
         setOccurMessage(Message.ORE_SMELT_EVENT);
+        setMoodModifier(-5);
     }
 
     @Override

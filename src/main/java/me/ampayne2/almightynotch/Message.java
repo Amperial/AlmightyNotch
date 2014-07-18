@@ -22,17 +22,21 @@ package me.ampayne2.almightynotch;
  * AlmightyNotch plugin messages.
  */
 public enum Message implements me.ampayne2.amplib.messenger.Message {
-    START_EVENTS("Start", "Events started."),
-    ALREADY_RUNNING("AlreadyStarted", "Events already started."),
-    STOP_EVENTS("Stop", "Events stopped."),
-    ALREADY_STOPPED("AlreadyStopped", "Events already stopped."),
+    NOTCH_AWAKEN("Notch.Awaken", "Notch has awoken."),
+    NOTCH_ALREADY_AWAKE("Notch.AlreadyAwake", "Notch is already awake."),
+    NOTCH_SLEEP("Notch.Sleep", "Notch has fallen into a deep slumber."),
+    NOTCH_ALREADY_ASLEEP("Notch.AlreadyAsleep", "Notch is already asleep."),
+    NOTCH_MOOD_INCREASE("Notch.Mood.Increase", "&2I appreciate your offerings."),
+    NOTCH_MOOD_CANT_INCREASE("Notch.Mood.CantIncrease", "Notch's mood cannot be increased."),
+    NOTCH_MOOD_DECREASE("Notch.Mood.Decrease", "&4You have offended me."),
+    NOTCH_MOOD_CANT_DECREASE("Notch.Mood.CantDecrease", "Notch's mood cannot be decreased."),
+    NOTCH_MOOD_SET("Notch.Mood.Set", "Set Almighty Notch's mood to %s."),
+    NOTCH_MOOD_NOT_FOUND("Notch.Mood.NotFound", "Mood not found."),
+    NOTCH_MOOD_INFO("Notch.Mood.Info", "Almighty Notch is %s with mood level %s."),
 
     EVENT_TRIGGER("Event.Trigger", "Triggered %s."),
     EVENT_NOT_TRIGGERED("Event.NotTriggered", "Event not triggered."),
     EVENT_NOT_FOUND("Event.NotFound", "Event not found."),
-
-    MOOD_SET("Mood.Set", "Set Almighty Notch's mood to %s."),
-    MOOD_NOT_FOUND("Mood.NotFound", "Mood not found."),
 
     // Mob Events
     CREEPER_EXPLODE_EVENT("Event.CreeperExplode", "I blew up all of the creepers."),

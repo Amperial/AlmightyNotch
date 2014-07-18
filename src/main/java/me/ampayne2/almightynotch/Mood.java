@@ -41,6 +41,8 @@ public enum Mood implements me.ampayne2.amplib.messenger.Message {
 
     private final String name;
     private final Set<Event> events = new HashSet<>();
+    private Mood increasedMood;
+    private Mood decreasedMood;
 
     private String message;
     private final String path;
@@ -60,6 +62,24 @@ public enum Mood implements me.ampayne2.amplib.messenger.Message {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Gets the next highest Mood.
+     *
+     * @return The next highest Mood.
+     */
+    public Mood getIncreasedMood() {
+        return increasedMood;
+    }
+
+    /**
+     * Gets the next lowest Mood.
+     *
+     * @return The next lowest Mood.
+     */
+    public Mood getDecreasedMood() {
+        return decreasedMood;
     }
 
     /**
@@ -139,5 +159,19 @@ public enum Mood implements me.ampayne2.amplib.messenger.Message {
         for (Mood mood : Mood.class.getEnumConstants()) {
             BY_NAME.put(mood.getName().toLowerCase(), mood);
         }
+        ECSTATIC.increasedMood = ECSTATIC;
+        ECSTATIC.decreasedMood = GENEROUS;
+        GENEROUS.increasedMood = ECSTATIC;
+        GENEROUS.decreasedMood = SATISFIED;
+        SATISFIED.increasedMood = GENEROUS;
+        SATISFIED.decreasedMood = SLEEPY;
+        SLEEPY.increasedMood = SATISFIED;
+        SLEEPY.decreasedMood = BORED;
+        BORED.increasedMood = SLEEPY;
+        BORED.decreasedMood = DISPLEASED;
+        DISPLEASED.increasedMood = BORED;
+        DISPLEASED.decreasedMood = INFURIATED;
+        INFURIATED.increasedMood = DISPLEASED;
+        INFURIATED.decreasedMood = INFURIATED;
     }
 }

@@ -21,6 +21,7 @@ package me.ampayne2.almightynotch.event;
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
 import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.amplib.messenger.Message;
+import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -36,6 +37,7 @@ public abstract class Event<T> {
     private Set<Mood> moods = new HashSet<>();
     private String description;
     private Message occurMessage;
+    private int moodModifier = 0;
     private int probability = 0;
     protected static final Random RANDOM = new Random();
 
@@ -112,7 +114,7 @@ public abstract class Event<T> {
     }
 
     /**
-     * Gets the occur message of the random event.
+     * Gets the occur message of the event.
      *
      * @return The random event's occur message.
      */
@@ -121,7 +123,7 @@ public abstract class Event<T> {
     }
 
     /**
-     * Sets the occur message of the random event.
+     * Sets the occur message of the event.
      *
      * @param occurMessage The occur message.
      */
@@ -130,7 +132,25 @@ public abstract class Event<T> {
     }
 
     /**
-     * Gets the probability of the random event occuring.
+     * Gets the mood modifier (the change to Almighty Notch's mood when triggered) of the event.
+     *
+     * @return The event's mood modifier.
+     */
+    public int getMoodModifier() {
+        return moodModifier;
+    }
+
+    /**
+     * Sets the mood modifier (the change to Almighty Notch's mood when triggered) of the event.
+     *
+     * @param moodModifier The mood modifier.
+     */
+    public void setMoodModifier(int moodModifier) {
+        this.moodModifier = moodModifier;
+    }
+
+    /**
+     * Gets the probability of the event occuring.
      *
      * @return The random event's probability.
      */
@@ -139,7 +159,7 @@ public abstract class Event<T> {
     }
 
     /**
-     * Sets the probability of the random event.
+     * Sets the probability of the event.
      *
      * @param probability The probability.
      */
@@ -167,6 +187,27 @@ public abstract class Event<T> {
     }
 
     /**
+     * Loads event settings from the ConfigurationSection
+     *
+     * @param section The ConfigurationSection.
+     */
+    public void load(ConfigurationSection section) {
+        probability = section.getInt("Probability", probability);
+        moodModifier = section.getInt("MoodModifier", moodModifier);
+    }
+
+    /**
+     * Saves event settings to a ConfigurationSection.
+     *
+     * @param section The ConfigurationSection.
+     */
+    public void save(ConfigurationSection section) {
+        section.set("Enabled", true);
+        section.set("Probability", probability);
+        section.set("MoodModifier", moodModifier);
+    }
+
+    /**
      * Removes the event from its moods and the event list.
      */
     public void remove() {
@@ -177,16 +218,16 @@ public abstract class Event<T> {
     }
 
     /**
-     * Handles attempting to trigger a type of {@link Event}.
+     * Handles attempting to trigger a type of {@link me.ampayne2.almightynotch.event.Event}.
      */
     public static abstract class EventHandler<T extends Event> {
 
         /**
-         * Attempts to trigger an {@link Event}.
+         * Attempts to trigger an {@link me.ampayne2.almightynotch.event.Event}.
          *
          * @param plugin The {@link me.ampayne2.almightynotch.AlmightyNotchPlugin} instance.
-         * @param event  The {@link Event} to trigger.
-         * @return True if the {@link Event} was triggered, else false.
+         * @param event  The {@link me.ampayne2.almightynotch.event.Event} to trigger.
+         * @return True if the {@link me.ampayne2.almightynotch.event.Event} was triggered, else false.
          */
         public abstract boolean triggerEvent(AlmightyNotchPlugin plugin, T event);
     }

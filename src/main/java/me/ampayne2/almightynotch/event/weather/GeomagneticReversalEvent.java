@@ -25,6 +25,7 @@ import me.ampayne2.almightynotch.event.WorldEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -32,6 +33,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class GeomagneticReversalEvent extends WorldEvent {
+    private long duration = 15 * 20;
     private final Map<UUID, Integer> eventTasks = new HashMap<>();
 
     public GeomagneticReversalEvent() {
@@ -40,6 +42,13 @@ public class GeomagneticReversalEvent extends WorldEvent {
         setProbability(3);
         setDescription("Makes every player's compass go bonkers.");
         setOccurMessage(Message.GEOMAGNETIC_REVERSAL_EVENT);
+        setMoodModifier(10);
+    }
+
+    @Override
+    public void load(ConfigurationSection section) {
+        super.load(section);
+        duration = section.getLong("Duration", 15) * 20;
     }
 
     @Override
@@ -68,7 +77,7 @@ public class GeomagneticReversalEvent extends WorldEvent {
                 }
                 eventTasks.remove(worldId);
             }
-        }, plugin.getConfig().getLong("Events.GeomagneticReversal.Duration", 15) * 20);
+        }, duration);
     }
 
     @Override

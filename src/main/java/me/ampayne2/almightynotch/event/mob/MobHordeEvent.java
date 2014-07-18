@@ -32,6 +32,7 @@ public class MobHordeEvent extends LocationEvent {
         setProbability(4);
         setDescription("Spawns a horde of mobs at a random location.");
         setOccurMessage(Message.MOB_HORDE_EVENT);
+        setMoodModifier(10);
     }
 
     @Override

@@ -26,9 +26,12 @@ import me.ampayne2.almightynotch.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 public class SoundEvent extends WorldEvent {
+    private int amount = 3;
+
     public SoundEvent() {
         super("Sound");
         setMoods(Mood.BORED, Mood.SLEEPY);
@@ -38,8 +41,13 @@ public class SoundEvent extends WorldEvent {
     }
 
     @Override
+    public void load(ConfigurationSection section) {
+        super.load(section);
+        amount = section.getInt("Amount", 3);
+    }
+
+    @Override
     public void trigger(AlmightyNotchPlugin plugin, World world) {
-        int amount = plugin.getConfig().getInt("Events.Sound.Amount", 3);
         for (Player player : world.getPlayers()) {
             for (int i = 0; i < amount; i++) {
                 player.playSound(player.getLocation(), Util.randomEnum(Sound.class), 10, 1);

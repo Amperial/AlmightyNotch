@@ -32,6 +32,7 @@ public class ExpBottleEvent extends LocationEvent {
         setProbability(4);
         setDescription("Drops exp bottles at a random location.");
         setOccurMessage(Message.EXP_BOTTLE_EVENT);
+        setMoodModifier(-15);
     }
 
     @Override

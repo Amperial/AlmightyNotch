@@ -20,4 +20,5 @@ package me.ampayne2.almightynotch.event.weather;
 
 public class HailStormEvent {
     // Moods: Infuriated
+    // Mood Modifier: 100
 }

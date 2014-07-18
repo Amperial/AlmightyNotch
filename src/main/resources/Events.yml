@@ -1,0 +1,67 @@
+AnvilFall:
+  Enabled: true
+  Probability: 5
+  MoodModifier: 10
+  FallHeight: 15
+  RemoveAfterFall: true
+CreeperExplode:
+  Enabled: true
+  Probability: 1
+  MoodModifier: 15
+Dinnerbone:
+  Enabled: true
+  Probability: 2
+  MoodModifier: 5
+  Duration: 15
+ExpBottle:
+  Enabled: false
+  Probability: 4
+  MoodModifier: 0
+  Amount: -15
+Fireworks:
+  Enabled: false
+  Probability: 3
+  MoodModifier: -5
+  Amount: 2
+FoodCook:
+  Enabled: true
+  Probability: 7
+  MoodModifier: -5
+FrightenSheep:
+  Enabled: false
+  Probability: 2
+  MoodModifier: 5
+GeomagneticReversal:
+  Enabled: true
+  Probability: 3
+  MoodModifier: 10
+  Duration: 15
+MobHorde:
+  Enabled: false
+  Probability: 4
+  MoodModifier: 10
+  Amount: 15
+  MaxRadius: 150
+OreSmelt:
+  Enabled: true
+  Probability: 7
+  MoodModifier: -5
+PvP:
+  Enabled: false
+  Probability: 5
+  MoodModifier: 0
+  Rewards:
+    - Material: DIAMOND
+      Amount: 1
+    - Material: GOLD_INGOT
+      Amount: 10
+SolarFlare:
+  Enabled: true
+  Probability: 3
+  MoodModifier: 20
+  FireTicks: 100
+Sound:
+  Enabled: true
+  Probability: 8
+  MoodModifier: 0
+  Amount: 3

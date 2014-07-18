@@ -20,4 +20,5 @@ package me.ampayne2.almightynotch.event.world;
 
 public class BuriedTreasureEvent {
     // Moods: Satisfied, Generous
+    // Mood Modifier: -5
 }

@@ -18,45 +18,32 @@
  */
 package me.ampayne2.almightynotch.commands;
 
+import me.ampayne2.almightynotch.AlmightyNotch;
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
 import me.ampayne2.almightynotch.Message;
-import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.amplib.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import java.util.List;
-
 /**
- * A command that sets Almighty Notch's {@link me.ampayne2.almightynotch.Mood}.
+ * A command that gets Almighty Notch's {@link me.ampayne2.almightynotch.Mood} and mood level.
  */
-public class SetMoodCommand extends Command {
+public class MoodInfoCommand extends Command {
     private final AlmightyNotchPlugin plugin;
 
-    public SetMoodCommand(AlmightyNotchPlugin plugin) {
-        super(plugin, "setmood");
-        setDescription("Sets Almighty Notch's mood.");
-        setCommandUsage("/an setmood <mood>");
-        setPermission(new Permission("almightynotch.setmood", PermissionDefault.OP));
-        setArgumentRange(1, 1);
+    public MoodInfoCommand(AlmightyNotchPlugin plugin) {
+        super(plugin, "info");
+        setDescription("Gets Almighty Notch's mood and mood level.");
+        setCommandUsage("/an mood info");
+        setPermission(new Permission("almightynotch.mood.info", PermissionDefault.TRUE));
         setPlayerOnly(false);
         this.plugin = plugin;
     }
 
     @Override
     public void execute(String command, CommandSender sender, String[] args) {
-        Mood mood = Mood.byName(args[0]);
-        if (mood == null) {
-            plugin.getMessenger().sendMessage(sender, Message.MOOD_NOT_FOUND);
-        } else {
-            plugin.getNotch().setMood(mood);
-            plugin.getMessenger().sendMessage(sender, Message.MOOD_SET, mood.getName());
-        }
-    }
-
-    @Override
-    public List<String> getTabCompleteList(String[] args) {
-        return Mood.getNames();
+        AlmightyNotch notch = plugin.getNotch();
+        plugin.getMessenger().sendMessage(sender, Message.NOTCH_MOOD_INFO, notch.getMood().getName(), String.valueOf(notch.getMoodLevel()));
     }
 }

@@ -18,58 +18,53 @@
  */
 package me.ampayne2.almightynotch.commands;
 
+import me.ampayne2.almightynotch.AlmightyNotch;
 import me.ampayne2.almightynotch.AlmightyNotchPlugin;
 import me.ampayne2.almightynotch.Message;
-import me.ampayne2.almightynotch.event.DefaultEvent;
-import me.ampayne2.almightynotch.event.Event;
+import me.ampayne2.almightynotch.Mood;
 import me.ampayne2.amplib.command.Command;
+import me.ampayne2.amplib.messenger.DefaultMessage;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import java.util.List;
-
 /**
- * A command that triggers a random or specific {@link me.ampayne2.almightynotch.event.Event}.
+ * A command that decreases Almighty Notch's {@link me.ampayne2.almightynotch.Mood}.
  */
-public class TriggerCommand extends Command {
+public class MoodDecreaseCommand extends Command {
     private final AlmightyNotchPlugin plugin;
 
-    public TriggerCommand(AlmightyNotchPlugin plugin) {
-        super(plugin, "trigger");
-        setDescription("Triggers an event.");
-        setCommandUsage("/an trigger [event]");
-        setPermission(new Permission("almightynotch.trigger", PermissionDefault.OP));
+    public MoodDecreaseCommand(AlmightyNotchPlugin plugin) {
+        super(plugin, "decrease");
+        setDescription("Decreases Almighty Notch's mood or mood level.");
+        setCommandUsage("/an mood decrease [amount]");
+        setPermission(new Permission("almightynotch.mood.decrease", PermissionDefault.OP));
         setArgumentRange(0, 1);
         setPlayerOnly(false);
         this.plugin = plugin;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void execute(String command, CommandSender sender, String[] args) {
+        AlmightyNotch notch = plugin.getNotch();
         if (args.length == 0) {
-            if (plugin.getNotch().triggerEvent()) {
-                plugin.getMessenger().sendMessage(sender, Message.EVENT_TRIGGER, "random event");
+            Mood mood = notch.getMood();
+            if (mood.equals(mood.getDecreasedMood())) {
+                plugin.getMessenger().sendMessage(sender, Message.NOTCH_MOOD_CANT_DECREASE);
             } else {
-                plugin.getMessenger().sendMessage(sender, Message.EVENT_NOT_TRIGGERED);
+                plugin.getMessenger().sendMessage(sender, Message.NOTCH_MOOD_DECREASE);
+                notch.setMood(mood.getDecreasedMood());
+                notch.save();
             }
         } else {
-            Event event = DefaultEvent.byName(args[0]);
-            if (event == null) {
-                plugin.getMessenger().sendMessage(sender, Message.EVENT_NOT_FOUND);
-            } else {
-                if (event.getHandler().triggerEvent(plugin, event)) {
-                    plugin.getMessenger().sendMessage(sender, Message.EVENT_TRIGGER, event.getName());
-                } else {
-                    plugin.getMessenger().sendMessage(sender, Message.EVENT_NOT_TRIGGERED);
-                }
+            try {
+                int amount = Integer.valueOf(args[0]);
+                plugin.getMessenger().sendMessage(sender, Message.NOTCH_MOOD_DECREASE);
+                notch.modifyMoodLevel(-Math.abs(amount));
+                notch.save();
+            } catch (Exception e) {
+                plugin.getMessenger().sendMessage(sender, DefaultMessage.ERROR_NUMBERFORMAT);
             }
         }
-    }
-
-    @Override
-    public List<String> getTabCompleteList(String[] args) {
-        return DefaultEvent.getEventList().getNames();
     }
 }

@@ -32,6 +32,7 @@ public class FireworksEvent extends WorldEvent {
         setProbability(3);
         setDescription("Shoots fireworks around every player.");
         setOccurMessage(Message.FIREWORKS_EVENT);
+        setMoodModifier(-5);
     }
 
     @Override

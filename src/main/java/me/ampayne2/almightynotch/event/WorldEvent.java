@@ -52,9 +52,14 @@ public abstract class WorldEvent extends Event<World> {
                 World world = worlds.get(RANDOM.nextInt(worlds.size()));
                 if (event.canOccur(plugin, world)) {
                     event.trigger(plugin, world);
+                    plugin.getMessenger().debug("Triggered WorldEvent " + event.getName() + " for world " + world.getName());
+                    if (event.getMoodModifier() != 0) {
+                        plugin.getNotch().modifyMoodLevel(event.getMoodModifier());
+                    }
                     return true;
                 } else {
                     worlds.remove(world);
+                    plugin.getMessenger().debug("Couldn't trigger WorldEvent " + event.getName() + " for world " + world.getName());
                 }
             }
             return false;

@@ -20,4 +20,5 @@ package me.ampayne2.almightynotch.event.mob;
 
 public class AngryChickenEvent {
     // Moods: Displeased
+    // Mood Modifier: 10
 }

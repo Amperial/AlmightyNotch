@@ -83,9 +83,15 @@ public abstract class MinigameEvent extends Event<Server> {
         public boolean triggerEvent(AlmightyNotchPlugin plugin, MinigameEvent event) {
             if (event.canOccur(plugin, Bukkit.getServer())) {
                 event.trigger(plugin, Bukkit.getServer());
+                plugin.getMessenger().debug("Triggered MinigameEvent " + event.getName());
+                if (event.getMoodModifier() != 0) {
+                    plugin.getNotch().modifyMoodLevel(event.getMoodModifier());
+                }
                 return true;
+            } else {
+                plugin.getMessenger().debug("Couldn't trigger MinigameEvent " + event.getName());
+                return false;
             }
-            return false;
         }
     }
 }

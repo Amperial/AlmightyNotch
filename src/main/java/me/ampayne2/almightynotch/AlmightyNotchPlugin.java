@@ -18,7 +18,10 @@
  */
 package me.ampayne2.almightynotch;
 
-import me.ampayne2.almightynotch.commands.SetMoodCommand;
+import me.ampayne2.almightynotch.commands.MoodDecreaseCommand;
+import me.ampayne2.almightynotch.commands.MoodIncreaseCommand;
+import me.ampayne2.almightynotch.commands.MoodInfoCommand;
+import me.ampayne2.almightynotch.commands.MoodSetCommand;
 import me.ampayne2.almightynotch.commands.TriggerCommand;
 import me.ampayne2.almightynotch.event.DefaultEvent;
 import me.ampayne2.almightynotch.event.Event;
@@ -29,10 +32,12 @@ import me.ampayne2.amplib.command.commands.AboutCommand;
 import me.ampayne2.amplib.command.commands.HelpCommand;
 import me.ampayne2.amplib.command.commands.ReloadCommand;
 import me.ampayne2.amplib.messenger.DefaultMessage;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 
 /**
@@ -49,15 +54,23 @@ public class AlmightyNotchPlugin extends AmpJavaPlugin {
         getConfigManager().registerConfigTypes(EnumSet.allOf(ConfigType.class));
         getMessenger().registerMessages(EnumSet.allOf(Message.class));
         getMessenger().registerMessages(EnumSet.allOf(Mood.class));
+        getMessenger().debug("Setup AmpLib");
 
-        FileConfiguration config = getConfig();
-        // Remove all events that are disabled in the config
-        for (DefaultEvent defaultEvent : DefaultEvent.class.getEnumConstants()) {
-            Event event = defaultEvent.getEvent();
-            if (!config.getBoolean("Events." + event.getName() + ".Enabled", true)) {
-                event.remove();
+        FileConfiguration config = getConfigManager().getConfig(ConfigType.EVENTS);
+        // Load event settings from the config
+        for (Event event : new ArrayList<>(DefaultEvent.getEventList())) {
+            if (config.isConfigurationSection(event.getName())) {
+                ConfigurationSection section = config.getConfigurationSection(event.getName());
+                if (config.getBoolean("Enabled", true)) {
+                    event.load(config.getConfigurationSection(event.getName()));
+                } else {
+                    event.remove();
+                }
+            } else {
+                event.save(config.createSection(event.getName()));
             }
         }
+        getMessenger().debug("Loaded event settings");
 
         notch = new AlmightyNotch(this);
 
@@ -72,9 +85,14 @@ public class AlmightyNotchPlugin extends AmpJavaPlugin {
                 .addChildCommand(help)
                 .addChildCommand(reload)
                 .addChildCommand(new TriggerCommand(this))
-                .addChildCommand(new SetMoodCommand(this));
+                .addChildCommand(new CommandGroup(this, "mood")
+                        .addChildCommand(new MoodInfoCommand(this))
+                        .addChildCommand(new MoodSetCommand(this))
+                        .addChildCommand(new MoodIncreaseCommand(this))
+                        .addChildCommand(new MoodDecreaseCommand(this)));
         almightyNotch.setPermission(new Permission("almightynotch.admin", PermissionDefault.OP));
         getCommandController().addCommand(almightyNotch);
+        getMessenger().debug("Added commands");
     }
 
     @Override

@@ -20,4 +20,5 @@ package me.ampayne2.almightynotch.event.world;
 
 public class SinkholeEvent {
     // Moods: Displeased
+    // Mood Modifier: 25
 }

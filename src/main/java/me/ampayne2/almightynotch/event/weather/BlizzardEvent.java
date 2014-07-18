@@ -20,4 +20,5 @@ package me.ampayne2.almightynotch.event.weather;
 
 public class BlizzardEvent {
     // Moods: Displeased
+    // Mood Modifier: 25
 }
