@@ -22,7 +22,7 @@ Features
 Built-in Events
 ---------------
 
-Descriptions and code of the following events can be found in [this package](https://github.com/ampayne2/AlmightyNotch/tree/master/src/main/java/me/ampayne2/almightynotch/event)
+Descriptions and code of the following events can be found in [this package](https://github.com/ampayne2/AlmightyNotch/tree/master/src/main/java/ninja/amp/almightynotch/event)
 - Anvil Fall Event
 - Creeper Explode Event
 - Dinnerbone Event
@@ -87,7 +87,7 @@ Included with the plugin are four types of events which should be sufficient for
 ---
 
 Creating an event
-- Extend the type of event it will be (for example [WorldEvent](https://github.com/ampayne2/AlmightyNotch/blob/master/src/main/java/me/ampayne2/almightynotch/event/WorldEvent.java)).
+- Extend the type of event it will be (for example [WorldEvent](https://github.com/ampayne2/AlmightyNotch/blob/master/src/main/java/ninja/amp/almightynotch/event/WorldEvent.java)).
 Then implement the methods and add your functionality.
 ```
 public class SolarFlareEvent extends WorldEvent {
