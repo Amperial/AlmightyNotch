@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>me.ampayne2</groupId>
+    <groupId>ninja.amp</groupId>
     <artifactId>almightynotch</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>AlmightyNotch</name>
@@ -18,20 +18,20 @@
             <url>http://repo.bukkit.org/content/groups/public</url>
         </repository>
         <repository>
-            <id>greatman-repo</id>
-            <url>http://repo.greatmancode.com/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>votifier-repo</id>
-            <url>http://repo.sacredlabyrinth.net:8081/artifactory/remote-repos/</url>
-        </repository>
-        <repository>
             <id>Plugin Metrics</id>
             <url>http://repo.mcstats.org/content/repositories/public</url>
         </repository>
         <repository>
             <id>gravity-repo</id>
             <url>http://repo.gravitydevelopment.net</url>
+        </repository>
+        <repository>
+            <id>votifier-repo</id>
+            <url>http://repo.sacredlabyrinth.net:8081/artifactory/remote-repos/</url>
+        </repository>
+        <repository>
+            <id>greatman-repo</id>
+            <url>http://repo.greatmancode.com/content/groups/public/</url>
         </repository>
     </repositories>
 
@@ -40,17 +40,8 @@
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>1.7.9-R0.3-SNAPSHOT</version>
+            <type>jar</type>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>me.ampayne2</groupId>
-            <artifactId>amplib</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.vexsoftware</groupId>
-            <artifactId>votifier</artifactId>
-            <version>1.9</version>
         </dependency>
         <dependency>
             <groupId>org.mcstats.bukkit</groupId>
@@ -62,6 +53,16 @@
             <groupId>net.gravitydevelopment.updater</groupId>
             <artifactId>updater</artifactId>
             <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vexsoftware</groupId>
+            <artifactId>votifier</artifactId>
+            <version>1.9</version>
+        </dependency>
+        <dependency>
+            <groupId>ninja.amp</groupId>
+            <artifactId>amplib</artifactId>
+            <version>1.1</version>
         </dependency>
     </dependencies>
 
@@ -155,7 +156,7 @@
                             <minimizeJar>true</minimizeJar>
                             <artifactSet>
                                 <includes>
-                                    <include>me.ampayne2:amplib</include>
+                                    <include>ninja.amp:amplib</include>
                                     <include>org.mcstats.bukkit:metrics</include>
                                     <include>net.gravitydevelopment.updater:updater</include>
                                 </includes>

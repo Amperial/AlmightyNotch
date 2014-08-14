@@ -1,6 +1,6 @@
 name: AlmightyNotch
 author: ampayne2
-main: me.ampayne2.almightynotch.AlmightyNotchPlugin
+main: ninja.amp.almightynotch.AlmightyNotchPlugin
 version: '${project.version}'
 commands:
   almightynotch:
